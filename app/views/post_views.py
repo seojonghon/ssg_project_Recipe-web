@@ -1,7 +1,7 @@
-import os, re
+import os
 from datetime import datetime
 from flask import Blueprint, render_template, request, url_for, g, flash
-from werkzeug.utils import redirect
+from werkzeug.utils import *
 from app import db
 from app.models import Post, Comment, User, Food, Image
 from app.forms import PostForm, CommentForm, FoodForm
@@ -44,38 +44,11 @@ def detail(post_id):
 
     form = CommentForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('post/post_detail.html', post=post, form=form)
-
-def upload_file(request):
-    print(">>>>>>>>>>>>> upload_file() is called" )
-    if 'file' not in request.files:
-        print("no file part")
-        return 'No file part'
-    file = request.files['file']
-    
-    
-    # If the user does not select a file, the browser might
-    # submit an empty file without a filename.
-    if file.filename == '':
-        return 'No selected file'
-    print('start')
-    filename = re(file.filename)
-
-    # Save the image to disk.
-    filepath = os.path.join("C:\projects", filename)
-    file.save(filepath)
-
-    # Save the image path to database.
-    new_image = Image(filename=filepath)
-    db.session.add(new_image)
-    try:
-        db.session.commit()
-    except Exception as e:
-        print(e)  # Here you want to add some logging for production use.
-        return "There was an issue uploading your image."
-
-    return redirect(url_for('question._list'))
-
+    image = db.session.query(Image).filter(Image.post_id == post_id).first()
+   
+    print(image.filename)
+    return render_template('post/post_detail.html', post=post, form=form, image=image)
+      
 @bp.route('/create/', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -89,10 +62,56 @@ def create():
 
         post.price = calculate(food)
         db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('post._list'))
+        
+        try:
+            db.session.commit()  # Commit the new post first to generate an id.
+            upload_file(request, post.id)  # Pass the id of the newly created post to the upload_file function.
+            
+            return redirect(url_for('main.index'))
+        
+        except Exception as e:
+            print(e)  # Here you want to add some logging for production use.
+            return "There was an issue uploading your image."
 
     return render_template('post/post_form.html', form=form, food=food, foods=foods)
+
+
+def upload_file(request, post_id):
+    print(">>>>>>>>>>>>> upload_file() is called" )
+    
+    if 'file' not in request.files:
+        print("no file part")
+        return 'No file part'
+    
+    file = request.files['file']
+    
+    # If the user does not select a file, the browser might
+    # submit an empty file without a filename.
+    if file.filename == '':
+        return 'No selected file'
+    
+    print('start')
+    
+    filename = secure_filename(file.filename)
+    
+     # Save the image to disk.
+    filepath = os.path.join("C:\projects", filename)
+    file.save(filepath)
+
+   # Save the image path to database.
+    new_image = Image(filename=filepath)
+    new_image.post_id = post_id
+    
+    db.session.add(new_image)
+   
+    try:
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()  # Rollback the transaction
+        print(e)  # Here you want to add some logging for production use.
+        return "There was an issue uploading your image."
+
+    return redirect(url_for('post._list'))
 
 
 @bp.route('/modify/<int:post_id>', methods=('GET', 'POST'))
@@ -137,31 +156,6 @@ def like(post_id):
         _post.liker.append(g.user)
         db.session.commit()
     return redirect(url_for('post.detail', post_id=post_id))
-
-
-# def upload_file(req):
-#     if 'file' not in req.files:
-#         print("no file part")
-#         return 'No file part'
-#     file = req.files['file']
-
-#     if file.filename == '':
-#         return 'No selected file'
-#     # filename = secure_filename(file.filename)
-
-#     filepath = os.path.join("", filename)
-#     file.save(filepath)
-
-#     new_image = Image(filename=filepath)
-#     db.session.add(new_image)
-#     try:
-#         db.session.commit()
-#     except Exception as e:
-#         print(e)
-#         return "There was an issue uploading your image."
-
-#     return redirect(url_for('post._list'))
-
 
 def calculate(food):
     food_1 = db.session.query(Food).filter(

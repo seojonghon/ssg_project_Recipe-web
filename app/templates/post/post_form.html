@@ -34,11 +34,6 @@
 {{ form.content.data or '' }}</textarea
       >
     </div>
-    <!--- <div class="mb-3">
-      <div class="file">
-        <input id="file" name="file" type="file" accept=".jpg, .jpeg, .png" />
-      </div>
-    </div> --->
     <h5>재료를 등록해주세요</h5>
     <div class="mb-3" id="food_name_1">
       품목 :
@@ -105,8 +100,8 @@
       />
     </div>
     <div class="mb-3" id="field"></div>
-    <input type="file" name="file" id="file" accept=".jpg, .jpeg, .png">
-    <button type="submit" class="btn btn-sm btn-outline-secondary">저장</button>
+      <input type="file" name="file" id="file" accept=".jpg, .jpeg, .png">
+    <button type="submit" value="업로드">저장</button>
   </form>
 </div>
 {% endblock %} {% block script %}
