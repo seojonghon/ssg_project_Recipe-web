@@ -95,11 +95,11 @@ def upload_file(request, post_id):
     filename = secure_filename(file.filename)
     
      # Save the image to disk.
-    filepath = os.path.join("C:\projects", filename)
+    filepath = os.path.join("C:/Users/User/Desktop//recipe-book/app/static", filename)
     file.save(filepath)
 
    # Save the image path to database.
-    new_image = Image(filename=filepath)
+    new_image = Image(filename=filename)
     new_image.post_id = post_id
     
     db.session.add(new_image)
