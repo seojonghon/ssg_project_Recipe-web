@@ -8,6 +8,8 @@
   <h2 class="border-bottom py-2">{{ post.subject }}</h2>
   <div class="card my-3">
     <div class="card-body">
+      <img src="{{ url_for('static',image.filename) }}">
+      <!--<div><img src="/post_image/{{ image.filename }}"></div> -->
       <div class="card-text">{{ post.content|markdown }}</div>
       <div class="card-text">{{ post.price }}원으로 만들 수 있어요</div>
       <div class="d-flex justify-content-end">
