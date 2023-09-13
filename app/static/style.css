@@ -92,6 +92,17 @@ body {
   clear: both;
 }
 
+#footerlogo {
+
+  display:inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 3em;
+  padding-top: 15px;
+  text-align: center;
+  font-family: 'yg-jalnan';
+} 
+
 #logo,
 #logo a {
   float: left;
