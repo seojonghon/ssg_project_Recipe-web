@@ -1,3 +1,4 @@
+
 # <span id='top'> 🥙 한끼얼마 Report💰</span>
 
 ## 1. 👨🏽‍💻 한끼얼마 소개
@@ -12,10 +13,10 @@
 
 ## 2. 👥 팀 소개
 
-|                                                                  배승원                                                                   |                                               서종훈                                                |                                               이지윤                                                |                                                   정지환                                                    |                                                   김지훈                                                    |
-| :---------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: |
-|                    ![img](https://github.com/seungwonbased/ssg-recipe-project/blob/main/assets/%EC%8A%B9%EC%9B%90.png)                    | ![img](https://github.com/seungwonbased/ssg-recipe-project/blob/main/assets/%EC%A2%85%ED%9B%88.png) | ![img](https://github.com/seungwonbased/ssg-recipe-project/blob/main/assets/%EC%A7%80%EC%9C%A4.png) |     ![img](https://github.com/seungwonbased/ssg-recipe-project/blob/main/assets/%EC%A7%80%ED%99%98.png)     |     ![img](https://github.com/seungwonbased/ssg-recipe-project/blob/main/assets/%EC%A7%80%ED%9B%88.png)     |
-| ![Static Badge](https://img.shields.io/badge/Team%20Leader-%23FE642E) ![Static Badge](https://img.shields.io/badge/Development-%235882FA) |                 ![Static Badge](https://img.shields.io/badge/Development-%235882FA)                 |                ![Static Badge](https://img.shields.io/badge/UI%20%2F%20UX-%23BE81F7)                | ![Static Badge](https://img.shields.io/badge/%EA%B8%B0%ED%9A%8D%20%EB%B0%8F%20%EA%B4%80%EB%A6%AC-%23088A29) | ![Static Badge](https://img.shields.io/badge/%EA%B8%B0%ED%9A%8D%20%EB%B0%8F%20%EA%B4%80%EB%A6%AC-%23088A29) |
+
+|                                                                                                                                |            배승원                                      |                                               서종훈|                  정지환|             김지훈   |                   이지윤                                                                                                    |
+| :---------------: | :-----------------------------------------------------------------: | :------------|--|---------: | :------------------: | :--------         |
+|  |                 ![Static Badge](https://img.shields.io/badge/Team%20Leader-%23FE642E) ![Static Badge](https://img.shields.io/badge/Development-%235882FA)                 |                ![Static Badge](https://img.shields.io/badge/Development-%235882FA)                | ![Static Badge](https://img.shields.io/badge/UI%20%2F%20UX-%23BE81F7)  |![Static Badge](https://img.shields.io/badge/%EA%B8%B0%ED%9A%8D%20%EB%B0%8F%20%EA%B4%80%EB%A6%AC-%23088A29) |![Static Badge](https://img.shields.io/badge/%EA%B8%B0%ED%9A%8D%20%EB%B0%8F%20%EA%B4%80%EB%A6%AC-%23088A29) 
 
 ## 3. 🗓️ 개발 기간 (23년 9월 1일 ~ 23년 9월 7일)
 
@@ -50,7 +51,7 @@
 ### 🏭 운영 환경
 
 - ![Static Badge](https://img.shields.io/badge/AWS-FF9900?logo=Amazon%20AWS&logoColor=%23FFFFFF) Lightsail Instance
-	- 1GB RAM, 2 vCPU, 40GB SSD
+	- 1GB RAM, 2 vCPU, 40GB SSD
 - OS: ![Static Badge](https://img.shields.io/badge/Ubuntu%2020.04-%23E95420?logo=Ubuntu&logoColor=%23FFFFFF)
 - DB: ![Static Badge](https://img.shields.io/badge/PostgreSQL-4169E1?logo=PostgreSQL&logoColor=%23FFFFFF)
 
@@ -530,23 +531,6 @@ git clone https://github.com/seungwonbased/ssg-recipe-project.git
 	- 웹 서버와 애플리케이션 서버(WSGI)를 분리하여 높은 성능, 확장성, 보안 제공
 	- WSGI는 동적 컨텐츠 생성 및 애플리케이션 로직 실행 담당
 	- Web Server는 정적 파일 서빙, 로드 밸런싱, 보안 설정 등을 처리
-
-#### WSGI (Web Server Gateway Interface, Whiskey)
-
-- Python 웹 애플리케이션과 웹 서버 간의 표준화된 인터페이스
-- WSGI는 웹 서버와 웹 애플리케이션 프레임워크 또는 애플리케이션을 분리해 개발자가 서로 다른 서버 및 애플리케이션을 조합하여 사용할 수 있도록 중간 계층 역할을 함
-- 즉, Python으로 작성된 여러 웹 애플리케이션 프레임워크(e.g., Flask, Django 등)와 웹 서버를 통합하는 데 사용됨
-- 구현체로는 uwsgi, Gunigcorn 등이 등장하면서 훨씬 효율적인 동적 리소스 서빙이 가능해짐
-- Flask에 WSGI를 붙여 WAS를 운용하게 됨
-	- Flask는 WSGI 애플리케이션이고, WSGI 서버에서 요청을 받아 동작
-
-##### Gunicorn
-
-- WSGI의 구현체
-- 운영을 위해 운영 서버에 WSGI인 Gunicorn 설치
-- Gunicorn을 리눅스에서 서비스로 등록하기 위해 환경 변수 파일 생성 및 서비스 파일 생성
-- 서비스 자동 실행 설정
-
 ```bash
 sudo systemctl enable ssgrecipe.service
 ```
